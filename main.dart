@@ -24,7 +24,12 @@ class Node{
   }
   
 }
-
+void primeiraRaiz(){
+  
+}
+void criarFolha(){
+  
+}
 void main() {
 	print('Hello World!');
 }
