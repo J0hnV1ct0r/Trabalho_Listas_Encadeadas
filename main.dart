@@ -1,33 +1,30 @@
 class Node{
-  var endereca_Raiz;
+  var prox = Node;
   var valor; 
-  var endereco_Folha;  
+  var anterior = Node;  
   Node(){
+    
+    
   }
-  void set_endereca_Raiz(var raiz){
-    this.endereca_Raiz = raiz;
+  void set_prox (var prox){
+    this.prox = prox;
   }
   void set_valor(var valor){
     this.valor = valor;
   }
-  void set_endereco_Folha(var folha){
-    this.endereco_Folha = folha;
+  void set_anterior(var anterior){
+    this.anterior = anterior;
   }
-  void get_endereca_Raiz(){
-    return this.endereca_Raiz;
-  }
+  
   void get_valor(){
     return this.valor;
   }
-  void get_endereco_Folha(){
-    return this.endereco_Folha;
-  }
   
 }
-void primeiraRaiz(){
+void primeiraentrada(){
   
 }
-void criarFolha(){
+void criarNo(){
   
 }
 void main() {
