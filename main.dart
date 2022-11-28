@@ -1,32 +1,37 @@
 class Node{
-  var prox = Node;
+  Node? prox = null;
   var valor; 
-  var anterior = Node;  
+  Node? anterior = null;  
   Node(){
     
-    
   }
-  void set_prox (var prox){
-    this.prox = prox;
-  }
+
   void set_valor(var valor){
     this.valor = valor;
   }
-  void set_anterior(var anterior){
-    this.anterior = anterior;
-  }
-  
+  void criarProx(Node no){
+    this.prox = Node();
+  }  
   void get_valor(){
     return this.valor;
   }
   
 }
-void primeiraentrada(){
-  
+void criarNo(Node? no){
+  if(no?.prox == null){
+    Node novoNo = Node();
+    no?.prox = novoNo;
+    novoNo.anterior = no;
+  }else{
+    criarNo(no?.prox);
+  }  
 }
-void criarNo(){
+void setValor(){
   
 }
 void main() {
-	print('Hello World!');
+	Node noIni = Node();
+  criarNo(noIni);
+  
+  
 }
