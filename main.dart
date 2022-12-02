@@ -3,8 +3,7 @@ class Node{
   Node? prox = null;
   var valor = null; 
   Node? anterior = null;  
-  Node(){
-    
+  Node(){  
   }
   void set_valor(var valor){
     this.valor = valor;
@@ -23,13 +22,28 @@ void criarNo(Node? no){
     criarNo(no?.prox);
   }  
 }
-void formaLista(Node? no, var entrada){
+void setLastNo(Node? noIni, Node? noFim){
+  if(noIni?.prox == null){
+    print("feito2");
+    noIni?.prox = noFim;
+    noFim?.anterior = noIni;
+  }else{
+    setLastNo(noIni?.prox, noFim);
+  }  
+}
+  
+void formaLista(Node? no, var entrada, bool listDeResul){
   double tamanho = (entrada.length - 1)/3;
-  for(int t=1; t < tamanho.floor(); t++){
+  if(listDeResul){
+    tamanho = tamanho + 2;
+  }
+  for(int t = 0; t < tamanho.floor(); t++){
     criarNo(no);
   }
 }
-void setValor(Node? no, double valor){
+
+void setValor(Node? no, var entrada){
+  double valor = double.parse("${entrada}");
    if(no?.prox != null){
      no?.valor = valor.floor()%1000;
      valor = valor/1000;
@@ -41,23 +55,38 @@ void setValor(Node? no, double valor){
    }
 }
 
+int getValor(Node? no){
+   return no?.valor;
+}
+
+void multiplicacao(Node? lista1, Node? lista2, Node? resultado){
+  var sobra;
+  var resp;
+  var soma;
+  var teste1 = getValor(lista1); 
+  var teste2 = getValor(lista2);
+  resp = teste1 + teste2;
+  print(resp);
+  if(resp != null){
+    if(resp > 999){
+      sobra = (resp/1000).floor();
+      print("sobra: ${sobra.runtimeType}");
+    }
+  }
+}
+
 
 void main() {
-	Node noIni = Node();
-  criarNo(noIni);
-  print("informe um valor: ");
+	Node lista1 = Node(); 
+  Node lista2 = Node();
+  Node resultado = Node();
+  print("informe o primeiro valor para a multiplicação: ");
   final entrada = stdin.readLineSync();
-  double valor = double.parse("${entrada}");
-  print(entrada?.length);
-  formaLista(noIni,entrada);
-  setValor(noIni,valor);
-  valor = valor/100;
-  print(noIni.valor);
-  print(noIni.prox?.valor);
-  print(noIni.prox?.prox?.valor);
-  print(noIni.prox?.prox?.prox?.valor);
-  print(noIni.prox?.prox?.prox?.prox?.valor);
-  //setValor(noIni);
-  //print("valor de um no: ${noIni.valor}");
-  //print("valor de outro no: ${noIni.prox?.valor}");
+  formaLista(lista1,entrada);
+  setValor(lista1,entrada);
+  print("informe o segundo valor para a multiplicação: ");
+  final segEntrada = stdin.readLineSync();
+  formaLista(lista2,segEntrada);
+  setValor(lista2,segEntrada);
+  multiplicacao(lista1,lista2,resultado);
 }
