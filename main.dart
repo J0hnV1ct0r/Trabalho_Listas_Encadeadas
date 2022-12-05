@@ -64,7 +64,7 @@ void setValor(Node? no, var entrada){
 }
 
 
-
+//Inicio do processso de multiplicação:
 void multiplicacao(Node? lista1, Node? lista2, Node? resultado){
   print("começou a operação.....");
   int sobra = 0;
@@ -82,7 +82,7 @@ void multiplicacao(Node? lista1, Node? lista2, Node? resultado){
   print(saida);
   
 }
-
+//Multiplicação:
 void multiplicaHelp(var lista1Valor, Node? lista2, Node? result, int sobra){
   print("operando.....");
   int? resp;
@@ -116,7 +116,7 @@ void multiplicaHelp(var lista1Valor, Node? lista2, Node? result, int sobra){
   }
   
 }
-
+//obiter o ultimo elemento:
 void pegarLast(Node? result,Node? noLast){
   if(result?.prox != null){
     pegarLast(result?.prox, noLast);
@@ -125,7 +125,7 @@ void pegarLast(Node? result,Node? noLast){
   }
   
 }
-
+//formara o resultado de saida:
 void formarSaida(String? saida,Node? noLast){
   String? last = noLast!.valor.toString();
   if(noLast.valor != 0){
