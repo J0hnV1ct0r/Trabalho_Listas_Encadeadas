@@ -1,6 +1,6 @@
 import 'dart:io';
-
-
+//NOME: João Victor de Souza Albuquerque
+//MATRICULA: 20211045050314
 class Node{
   
   Node? prox = null;
