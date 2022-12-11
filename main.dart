@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'dart:mirrors';
+
 class Node{
   Node? prox = null;
   int valor = 0; 
@@ -68,18 +68,13 @@ void setValor(Node? no, var entrada){
 void multiplicacao(Node? lista1, Node? lista2, Node? resultado){
   print("começou a operação.....");
   int sobra = 0;
-  Node? noLast;
-  String? saida = "Resultado da Multiplicação: ";
   multiplicaHelp(lista1?.get_valor(),lista2,resultado,sobra);
   if(lista1?.prox != null){
     //multiplicaHelp(lista1?.get_valor(),lista2,resultado,sobra);
-    multiplicacao(lista1?.get_prox(),lista2,resultado);
+    multiplicacao(lista1?.get_prox(),lista2,resultado?.get_prox());
   }else{
     print("fim da operação.....");
   }
-  pegarLast(resultado,noLast);
-  formarSaida(saida,noLast);
-  print(saida);
   
 }
 //Multiplicação:
@@ -96,8 +91,12 @@ void multiplicaHelp(var lista1Valor, Node? lista2, Node? result, int sobra){
   resp = lista1Valor * lista2!.get_valor();
   if(resp != null){
     if(resp > 999){
-      result.set_valor(resp.floor()%1000);
+      result.valor = result.valor + ((resp).floor()%1000);
       sobra = sobra + (resp/1000).floor();
+      if(result.valor> 999){
+        sobra = sobra + (result.valor/1000).floor();
+        result.set_valor(((result.valor).floor()%1000));
+        }
       if(lista2.prox != null){
         multiplicaHelp(lista1Valor,lista2.get_prox(),result.get_prox(),sobra);
       }else{
@@ -105,7 +104,11 @@ void multiplicaHelp(var lista1Valor, Node? lista2, Node? result, int sobra){
         sobra = 0;
       }
     }else{
-      result.set_valor(resp.floor()%1000);
+      result.valor = result.valor + resp;
+      if(result.valor> 999){
+        sobra = sobra + (result.valor/1000).floor();
+        result.set_valor((result.valor).floor()%1000);
+      }
       if(lista2.prox != null){
         multiplicaHelp(lista1Valor,lista2.get_prox(),result.get_prox(),sobra);
       }else{
@@ -113,26 +116,38 @@ void multiplicaHelp(var lista1Valor, Node? lista2, Node? result, int sobra){
         sobra = 0;
       }
      }
-  }
-  
+  } 
 }
+
+
+//função principal de saida:
+void saida(Node? resultado){
+  String? saida = "Resultado da Multiplicação: ";
+  var listaOut = [];
+  String temp = "";
+  pegarValores(resultado,listaOut);
+  for(int t = listaOut.length - 1; t >= 0; t--){
+    if(listaOut[t] == "0"){
+     temp = temp + "000";
+   }else if(listaOut[t].length == 2){
+      temp = temp + "0" + listaOut[t];
+   }else if(listaOut[t].length == 1){
+      temp = temp + "00" + listaOut[t];
+   }else{
+      temp = temp + listaOut[t];
+   }
+  }
+  saida = saida + temp;
+  print(saida);
+}
+
 //obiter o ultimo elemento:
-void pegarLast(Node? result,Node? noLast){
+void pegarValores(Node? result,var listaOut){
+  listaOut.add(result?.valor.toString());
   if(result?.prox != null){
-    pegarLast(result?.prox, noLast);
+    pegarValores(result?.prox,listaOut);
   }else{
-    noLast = result;
-  }
-  
-}
-//formara o resultado de saida:
-void formarSaida(String? saida,Node? noLast){
-  String? last = noLast!.valor.toString();
-  if(noLast.valor != 0){
-    saida = saida !+ last;
-  }
-  if(noLast.anterior != null){
-    formarSaida(saida,noLast.anterior);
+    print(result?.valor);
   }
 }
 
@@ -167,4 +182,11 @@ void main() {
   }
 
   multiplicacao(lista1,lista2,resultado);
+  print(resultado.valor);
+  print(resultado.prox?.valor);
+  print(resultado.prox?.prox?.valor);
+  print(resultado.prox?.prox?.prox?.valor);
+  
+  saida(resultado);
+  
 }
